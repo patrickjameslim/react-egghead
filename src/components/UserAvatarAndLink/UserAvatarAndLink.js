@@ -8,15 +8,16 @@ class UserAvatarAndLink extends Component {
   render() {
     return(
       <div>
-        <Image className="avatar" src="https://avatars0.githubusercontent.com/u/2933430?v=3&s=460" responsive rounded/>
-        <Button bsStyle="info" block><a href="">View Profile</a></Button>
+        <Image className="avatar" src={this.props.avatarUrl} responsive rounded/>
+        <a href={this.props.profileUrl} target="_blank"><Button bsStyle="info" block>View Profile</Button></a>
       </div>
     )
   }
 }
 
 UserAvatarAndLink.PropTypes = {
-  src: React.PropTypes.string
+  avatarUrl: React.PropTypes.string,
+  profileUrl: React.PropTypes.string
 };
 
 export default UserAvatarAndLink;
