@@ -28,8 +28,8 @@ class App extends Component {
     this.state = {
       fetchRequests: new FetchRequests(),
       githubUser: {
-        avatar: "",
-        username: ""
+        username: "",
+        userRepositories: []
       }
     }
   }
@@ -55,6 +55,15 @@ class App extends Component {
           repositories: json.public_repos
         }
       });
+    });
+    this.state.fetchRequests.getGithubUserRepositories('tylermcginnis')
+    .then((json) => {
+      this.setState({
+        githubUser: {
+          userRepositories: json
+        }
+      })
+      console.log(this.state.githubUser.userRepositories);
     });
   }
 
