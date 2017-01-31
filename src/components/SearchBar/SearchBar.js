@@ -14,17 +14,23 @@ class SearchBar extends Component {
           <FormGroup>
             <FormControl
               type="text"
-              placeholder="Search for a Github profile here">
+              placeholder="Search for a Github profile here"
+              onKeyPress={this.update}
+              ref='username'>
             </FormControl>
           </FormGroup>
         </Form>
       </div>
     )
   }
+
+  update() {
+    this.props.onSearch(this.refs.username.getDOMNode().value);
+  }
 }
 
 SearchBar.PropTypes = {
-  searchTerm: React.PropTypes.string
+  username: React.PropTypes.string
 };
 
 export default SearchBar;

@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 
-// Fetch Polyfill
-import 'whatwg-fetch';
-
 // Custom Components
 import NavigationBar from './components/NavigationBar/NavigationBar';
 import SearchBar from './components/SearchBar/SearchBar';
@@ -27,10 +24,8 @@ class App extends Component {
     super();
     this.state = {
       fetchRequests: new FetchRequests(),
-      githubUser: {
-        username: "",
-        userRepositories: []
-      }
+      githubUser: {},
+      githubUserRepositories: []
     }
   }
   componentDidMount() {
@@ -40,7 +35,6 @@ class App extends Component {
     });*/
     this.state.fetchRequests.getGithubUser('tylermcginnis')
     .then((json) => {
-      console.log(json);
       this.setState({
         githubUser: {
           avatarUrl: json.avatar_url,
@@ -59,11 +53,8 @@ class App extends Component {
     this.state.fetchRequests.getGithubUserRepositories('tylermcginnis')
     .then((json) => {
       this.setState({
-        githubUser: {
-          userRepositories: json
-        }
-      })
-      console.log(this.state.githubUser.userRepositories);
+        githubUserRepositories: json
+      });
     });
   }
 
@@ -73,7 +64,7 @@ class App extends Component {
         <NavigationBar/>
         <Grid>
           <Row>
-              <SearchBar/>
+              <SearchBar onSearch={this.searchGithubUser.avatarUrl}/>
           </Row>
           <Row>
             <Panel header={this.state.githubUser.username}>
@@ -97,13 +88,43 @@ class App extends Component {
             </Panel>
             <Panel header="Repositories">
               <Col sm={12}>
-                  <UserRepositories/>
+                  <UserRepositories repositories={this.state.githubUserRepositories}/>
               </Col>
             </Panel>
           </Row>
         </Grid>
       </div>
     )
+  }
+
+  searchGithubUser(username) {
+    this.state.fetchRequests.getGithubUser(username)
+    .then((json) => {
+      console.log('searchGithubUser(): ' + json);
+      this.setState({
+        githubUser: {
+          avatarUrl: json.avatar_url,
+          username: json.login,
+          profileUrl: 'http://github.com/' + json.login,
+          name: json.name,
+          email: json.email,
+          location: json.location,
+          memberSince: json.created_at,
+          followers: json.followers,
+          following: json.following,
+          repositories: json.public_repos
+        }
+      });
+    });
+    this.state.fetchRequests.getGithubUserRepositories(username)
+    .then((json) => {
+      this.setState({
+        githubUser: {
+          userRepositories: json
+        }
+      })
+      console.log('searchGithubUser(): ' + this.state.githubUser.userRepositories);
+    });
   }
 }
 
