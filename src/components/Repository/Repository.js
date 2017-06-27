@@ -13,33 +13,16 @@ class Repository extends Component {
         <div className="repository">
           <Row>
             <Col md={9}>
-              <h3><a href="#">re-base</a></h3>
+              <h3>{this.props.name}</h3>
             </Col>
             <Col md={3}>
-              <Badge bsStyle="warning">1.1k Stars</Badge>
-              <Badge bsStyle="info">91 Watchers</Badge>
+              <Badge bsStyle="warning">{this.props.stars}</Badge>
+              <Badge bsStyle="info">{this.props.watchers}</Badge>
             </Col>
           </Row>
           <Row>
             <Col md={12}>
-              <p>A Relay inspired library for building React.js + Firebase applications.</p>
-            </Col>
-          </Row>
-        </div>
-        <hr/>
-        <div className="repository">
-          <Row>
-            <Col md={9}>
-              <h3><a href="#">react-router-firebase-auth</a></h3>
-            </Col>
-            <Col md={3}>
-              <Badge bsStyle="warning">1.1k Stars</Badge>
-              <Badge bsStyle="info">91 Watchers</Badge>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={12}>
-              <p>Example of how to have protected routes with Firebase and React Router.</p>
+              <p>{this.props.desc}</p>
             </Col>
           </Row>
         </div>

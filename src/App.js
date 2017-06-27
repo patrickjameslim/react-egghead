@@ -33,7 +33,7 @@ class App extends Component {
     .then((data) => {
       this.setState({avatar: data.avatar_url});
     });*/
-    this.state.fetchRequests.getGithubUser('tylermcginnis')
+    this.state.fetchRequests.getGithubUser('jmramos02')
     .then((json) => {
       this.setState({
         githubUser: {
@@ -50,7 +50,7 @@ class App extends Component {
         }
       });
     });
-    this.state.fetchRequests.getGithubUserRepositories('tylermcginnis')
+    this.state.fetchRequests.getGithubUserRepositories('jmramos02')
     .then((json) => {
       this.setState({
         githubUserRepositories: json

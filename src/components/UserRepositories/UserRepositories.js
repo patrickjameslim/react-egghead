@@ -10,9 +10,19 @@ class UserRepositories extends Component {
     // this.props.repositories.map((repository) => {
     //   console.log(repository.name);
     // });
-    console.log(this.props.repositories);
+
     return(
-      <Repository/>
+      <div>
+        { this.props.repositories.map((repo) => {
+          return <Repository
+            key={repo.id}
+            name={repo.name}
+            stars={repo.stargazers_count}
+            watchers={repo.watchers}
+          />
+        })}
+
+      </div>
     )
   }
 }
